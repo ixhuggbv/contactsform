@@ -1,0 +1,130 @@
+<html>
+    <head>
+        <link rel="stylesheet" type="text/css" href="css/contactsform.css">
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+    </head>
+    <body ng-app="contactsform.demo">
+        <!--<div ng-controller="contactsformController">-->
+            <!--<div class="list" ng-repeat="list in data">-->
+                <!--<h3>{{ list.name }}</h3>-->
+                <!--<ul>-->
+                    <!--<li ng-repeat="contact in list.contacts">-->
+                        <!--<contactsform-contact></contactsform-contact>-->
+                    <!--</li>-->
+                <!--</ul>-->
+                <!--<div class="flex">-->
+                    <!--<input type="text" ng-model="new_title" />-->
+                    <!--<button ng-click="add(list, new_title)">+</button>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+        <div ng-controller="contactsformController" class="container-fluid">
+
+			<div class="row">
+
+				<div class="col-md-6">
+
+					<h2>Enter details: </h2>
+
+					<form novalidate ng-submit="add(data, contact)" name="myForm">
+
+						<div class="form-group">
+							<input ng-model="contact.name" class="form-control" placeholder="Name" title="Name" required />
+						</div>
+
+						<div class="form-group">
+							<input ng-model="contact.email" class="form-control" placeholder="user123@email.com" title="Email" type="email" required />
+						</div>
+
+						<div class="form-group">
+							<textarea ng-model="contact.add_1" class="form-control" placeholder="First line of address" title="Address" required></textarea>
+						</div>
+
+						<div class="form-group">
+							<textarea ng-model="contact.add_2" class="form-control" placeholder="Second line of address..." title="Address" required></textarea>
+						</div>
+
+						<div class="form-group">
+							<textarea ng-model="contact.town" class="form-control" placeholder="Town..." title="Address" required></textarea>
+						</div>
+
+						<div class="form-group">
+							<textarea ng-model="contact.postcode" class="form-control" placeholder="Postcode..." title="Address" required></textarea>
+						</div>
+
+						<div class="form-group">
+							<input ng-model="contact.phone" class="form-control" placeholder="enter phone number..." title="Phone Number" type="text" pattern="[0-9]*" maxlength="20" required />
+						</div>
+
+						<div class="form-group form-inline">
+							<p class="input-group">
+								<input ng-model="contact.dob" type="date" class="form-control" uib-datepicker-popup is-open="isOpened" datepicker-options="dateOptions" ng-required="false" close-text="Close" placeholder="YYYY-MM-DD" title="Date of Birth"/>
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+								</span>
+							</p>
+						</div>
+
+						<div class="form-group">
+							<input ng-disabled="myForm.$invalid" type="submit" class="btn btn-primary pull-right" value="Save" />
+						</div>
+
+					</form>
+
+				</div>
+
+				<div class="col-md-4">
+					<h2>Output: </h2>
+					<pre>Name = {{contact.name}}</pre>
+					<pre>Email = {{contact.email}}</pre>
+					<pre>Add_1 = {{contact.add_1}}</pre>
+					<pre>Add_2 = {{contact.add_2}}</pre>
+					<pre>Town = {{contact.town}}</pre>
+					<pre>Postcode = {{contact.postcode}}</pre>
+					<pre>Phone Number = {{contact.phone}}</pre>
+					<pre>Date of Birth = {{contact.dob | date : "dd/MM/yyyy"}}</pre>
+				</div>
+			</div>
+			<div class="row"><div class="col-md-6">&nbsp;</div></div>
+			<div class="row">
+				<div class="col-md-8">
+					<table class="table">
+						<thead>
+							<tr>
+								<td>Name</td>
+								<td>Email</td>
+								<td>Date of Birth</td>
+								<!-- <td>Age</td> -->
+								<td>Add_1</td>
+								<td>Add_2</td>
+								<td>Town</td>
+								<td>Postcode</td>
+								<td>Phone Number</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="contact in data">
+								<td>{{contact.name}}</td>
+								<td>{{contact.email}}</td>
+								<td>{{contact.dob | date : "dd/MM/yyyy"}}</td>
+                                <!-- <td>{{record.dob | ageFilter}}</td> -->
+								<td>{{contact.add_1}}</td>
+								<td>{{contact.add_2}}</td>
+								<td>{{contact.town}}</td>
+								<td>{{contact.postcode}}</td>
+								<td>{{contact.phone}}</td>
+								<td class="btn btn-primary" ng-click="edit(contact)" value="Edit">Edit</td>
+								<td class="btn btn-primary" ng-click="delete(contact)" value="Delete">Delete</td>
+							</tr>
+						</tbody>
+					</table>
+
+				</div>
+			</div>
+		</div>
+        <script src="angular.min.js"></script>
+		<script src="ui-bootstrap-tpls-2.2.0.min.js"></script>
+        <script src="contactsform.js"></script>
+        <script src="contact.directive.js"></script>
+    </body>
+</html>
