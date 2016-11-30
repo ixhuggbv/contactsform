@@ -1,7 +1,0 @@
-{"records":[
-  {"name":"Rosie", "email":"user123@email.com", "address":"1 Hazel Street", "phone":"01234567890", "dateOfBirth":"1988-08-29"},
-  {"name":"James", "email":"user345@email.com", "address":"2 Elm Street", "phone":"01234578906", "dateOfBirth":"1985-01-26"},
-  {"name":"Scott", "email":"user567@email.com", "address":"3 Oak Street", "phone":"01234589067", "dateOfBirth":"1979-11-03"},
-  {"name":"Charlotte", "email":"user789@email.com", "address":"4 Maple Street", "phone":"01234590678", "dateOfBirth":"1982-07-14"},
-  {"name":"Paolo", "email":"user890@email.com", "address":"5 Pine Street", "phone":"01234506789", "dateOfBirth":"1993-01-07"}
-]}
