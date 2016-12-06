@@ -1,17 +1,19 @@
-angular.module('contactsform.demo', [])
+angular.module('contactsform.demo', ['ui.bootstrap'])
 	.controller('contactsformController', ['$scope', '$http', function ($scope, $http) {
-        $scope.add = function (contact) {
-			console.log(contact);
-            var data = {
+		
+		
+		$scope.add = function (contact) {
+            
+			var data = {
 				//params: {
-					Name: contact.name,
-					Email: contact.email,
-					Add_1: contact.add_1,
-					Add_2: contact.add_2,
-					Town: contact.town,
-					Postcode: contact.postcode,
-					Phone: contact.phone,
-					DOB: contact.dob
+					Name: contact.Name,
+					Email: contact.Email,
+					Add_1: contact.Add_1,
+					Add_2: contact.Add_2,
+					Town: contact.Town,
+					Postcode: contact.Postcode,
+					Phone: contact.Phone,
+					DOB: contact.DOB
 				//}
             };
 			var config = {
@@ -21,14 +23,38 @@ angular.module('contactsform.demo', [])
 			};
             $http.post('/contacts/', data, config)
                 .then(function(response){
-                    $scope.data.push(data);
+					$scope.data.push(data);
+					console.log($scope.data);
+                   /*  $http.get('/contacts/').then(
+					function(response){
+						$scope.data = response.data;
+					}
+				}); */
+					
                 },
-            function (){
+						
+            
+			function (){
                 alert('Could not create contact');
             });
+			$scope.contact = [];
         };
 
-        $scope.data = [];
+        $scope.populate = function(){
+			
+			$scope.contact = {
+				"Name":"Will",
+				"Email":"will@will.com",
+				"Add_1":"345 Any Street",
+				"Add_2":"Green Hill",
+				"Town":"Bristol",
+				"Postcode":"BS2 8UI",
+				"Phone":"01234897654",
+				"DOB":"1989-04-25"
+			};
+		};
+		
+		$scope.data = [];
         $http.get('/contacts/').then(
             function(response){
                 $scope.data = response.data;
@@ -48,20 +74,45 @@ angular.module('contactsform.demo', [])
 	    $scope.open = function() {
 		    $scope.isOpened = true;
 	    };
-		
-		$scope.update = function () {
-            $http.put(url, $scope.contact);
-        };
+		//$scope.contacts = [];
+		$scope.update = function(contact) {
+			$scope.contact = angular.copy(contact);
+			$scope.showedit = true;
+		};
 
-        $scope.delete = function(){
-            $http.delete(url).then(
+		$scope.change = function(contact){
+			var config = {
+				headers: {
+					'Content-Type': 'application/json'
+				}
+			};
+			$http.put('/contacts/'+contact.ID, contact)
+			.then(function(response){
+				$http.get('/contacts/').then(
+					function(response){
+						$scope.data = response.data;
+					}
+				);
+			});
+			$scope.contact = [];
+		};
+		
+        $scope.delete = function(contact){
+            
+			$http.delete('contacts/'+contact.ID).then(
                 function(){
-                    var contacts = $scope.list.contacts;
+                    var contacts = $scope.data;
                         contacts.splice(
-                            contacts.indexOf($scope.contact),
+                            contacts.indexOf(contact),
                             1
                         );
                 }
             );
         };
+		
+		
+		$scope.sortType = 'Name';
+		$scope.sortReverse = false;
+		$scope.searchContacts = '';
+		
     }]);

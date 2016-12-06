@@ -2,50 +2,50 @@
     <head>
         <link rel="stylesheet" type="text/css" href="css/contactsform.css">
         <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/application.css">
     </head>
     <body ng-app="contactsform.demo">
-
 		<div ng-controller="contactsformController" class="container-fluid">
-
+		<button ng-click="showadd = !showadd" id="add_contact">Add new contact</button>
+		<button ng-click="populate(contact)">Populate form</button>
 			<div class="row">
+				<div class="col-md-6" ng-show="showadd">
 
-				<div class="col-md-6">
+					<h4>Enter details: </h4>
 
-					<h2>Enter details: </h2>
-
-					<form novalidate ng-submit="add(contact)" name="myForm">
+					<form novalidate name="myForm">
 
 						<div class="form-group">
-							<input ng-model="contact.name" class="form-control" placeholder="Name" title="Name" required />
+							<input ng-model="contact.Name" class="form-control" placeholder="Name" title="Name" id="add_contact_name" required />
 						</div>
 
 						<div class="form-group">
-							<input ng-model="contact.email" class="form-control" placeholder="user123@email.com" title="Email" type="email" required />
+							<input ng-model="contact.Email" class="form-control" placeholder="user123@email.com" title="Email" type="email" id="add_contact_email" required />
 						</div>
 
 						<div class="form-group">
-							<textarea ng-model="contact.add_1" class="form-control" placeholder="First line of address" title="Address" required></textarea>
+							<input ng-model="contact.Add_1" class="form-control" placeholder="First line of address" title="Address" id="add_contact_add_1" required/>
 						</div>
 
 						<div class="form-group">
-							<textarea ng-model="contact.add_2" class="form-control" placeholder="Second line of address..." title="Address" required></textarea>
+							<input ng-model="contact.Add_2" class="form-control" placeholder="Second line of address..." title="Address" id="add_contact_add_2" required/>
 						</div>
 
 						<div class="form-group">
-							<textarea ng-model="contact.town" class="form-control" placeholder="Town..." title="Address" required></textarea>
+							<input ng-model="contact.Town" class="form-control" placeholder="Town..." title="Address" id="add_contact_town" required/>
 						</div>
 
 						<div class="form-group">
-							<textarea ng-model="contact.postcode" class="form-control" placeholder="Postcode..." title="Address" required></textarea>
+							<input ng-model="contact.Postcode" class="form-control" placeholder="Postcode..." title="Address" id="add_contact_postcode" required/>
 						</div>
 
 						<div class="form-group">
-							<input ng-model="contact.phone" class="form-control" placeholder="enter phone number..." title="Phone Number" type="text" pattern="[0-9]*" maxlength="20" required />
+							<input ng-model="contact.Phone" class="form-control" placeholder="enter phone number..." title="Phone Number" type="text" pattern="[0-9]*" maxlength="20" id="add_contact_phone" required />
 						</div>
 
 						<div class="form-group form-inline">
 							<p class="input-group">
-								<input ng-model="contact.dob" type="date" class="form-control" uib-datepicker-popup is-open="isOpened" datepicker-options="dateOptions" ng-required="false" close-text="Close" placeholder="YYYY-MM-DD" title="Date of Birth"/>
+								<input ng-model="contact.DOB" type="date" class="form-control" uib-datepicker-popup is-open="isOpened" datepicker-options="dateOptions" ng-required="false" close-text="Close" placeholder="YYYY-MM-DD" title="Date of Birth" id="add_contact_dob"/>
 								<span class="input-group-btn">
 									<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
 								</span>
@@ -53,44 +53,99 @@
 						</div>
 
 						<div class="form-group">
-							<input ng-disabled="myForm.$invalid" type="submit" class="btn btn-primary pull-right" value="Save" />
+							<button ng-disabled="myForm.$invalid" ng-click="add(contact); showadd = !showadd" class="btn btn-primary pull-left"  id="add_contact_save">Save</button>
+							
 						</div>
 
 					</form>
 
 				</div>
+				
+				<div class="col-md-6" ng-show="showedit">
 
-				<div class="col-md-4">
-					<h2>Output: </h2>
-					<pre>Name = {{contact.name}}</pre>
-					<pre>Email = {{contact.email}}</pre>
-					<pre>Add_1 = {{contact.add_1}}</pre>
-					<pre>Add_2 = {{contact.add_2}}</pre>
-					<pre>Town = {{contact.town}}</pre>
-					<pre>Postcode = {{contact.postcode}}</pre>
-					<pre>Phone Number = {{contact.phone}}</pre>
-					<pre>Date of Birth = {{contact.dob | date : "dd/MM/yyyy"}}</pre>
+					<h4>Update details:</h4>
+
+					<form novalidate ng-submit="change(contact)" name="myForm">
+
+						<div class="form-group">
+							<input ng-model="contact.Name" class="form-control" placeholder="Name" title="Name" required />
+						</div>
+
+						<div class="form-group">
+							<input ng-model="contact.Email" class="form-control" placeholder="user123@email.com" title="Email" type="email" required />
+						</div>
+
+						<div class="form-group">
+							<input ng-model="contact.Add_1" class="form-control" placeholder="First line of address" required />						
+						</div>
+
+						<div class="form-group">
+							<input ng-model="contact.Add_2" class="form-control" placeholder="Second line of address..." required />
+						</div>
+
+						<div class="form-group">
+							<input ng-model="contact.Town" class="form-control" placeholder="Town..." required />
+						</div>
+
+						<div class="form-group">
+							<input ng-model="contact.Postcode" class="form-control" placeholder="Postcode..." required />
+						</div>
+
+						<div class="form-group">
+							<input ng-model="contact.Phone" class="form-control" placeholder="enter phone number..." title="Phone Number" type="text" pattern="[0-9]*" maxlength="20" required />
+						</div>
+
+						<div class="form-group form-inline">
+							<p class="input-group">
+								<input ng-model="contact.DOB" type="date" class="form-control" uib-datepicker-popup is-open="isOpened" datepicker-options="dateOptions" ng-required="false" close-text="Close" placeholder="YYYY-MM-DD" title="Date of Birth"/>
+								<span class="input-group-btn">
+									<button type="button" class="btn btn-default" ng-click="open()"><i class="glyphicon glyphicon-calendar"></i></button>
+								</span>
+							</p>
+						</div>
+
+						<div class="form-group">
+							<input ng-disabled="myForm.$invalid" type="submit" ng-click="showedit = !showedit" class="btn btn-primary pull-right" value="Save" />
+							
+						</div>
+
+					</form>
+
 				</div>
+				
+
+				<!-- <div class="col-md-4"> -->
+					<!-- <h2>Output: </h2> -->
+					<!-- <pre>Name = {{contact.Name}}</pre> -->
+					<!-- <pre>Email = {{contact.Email}}</pre> -->
+					<!-- <pre>Add_1 = {{contact.Add_1}}</pre> -->
+					<!-- <pre>Add_2 = {{contact.Add_2}}</pre> -->
+					<!-- <pre>Town = {{contact.Town}}</pre> -->
+					<!-- <pre>Postcode = {{contact.Postcode}}</pre> -->
+					<!-- <pre>Phone Number = {{contact.Phone}}</pre> -->
+					<!-- <pre>Date of Birth = {{contact.DOB | date : "dd/MM/yyyy"}}</pre> -->
+				<!-- </div> -->
 			</div>
 			<div class="row"><div class="col-md-6">&nbsp;</div></div>
 			<div class="row">
-				<div class="col-md-8">
+				<div class="col-md-9">
 					<table class="table">
 						<thead>
+							<input type="text" class="form-control" placeholder="Search" ng-model="searchContacts">
 							<tr>
-								<td>Name</td>
-								<td>Email</td>
-								<td>Date of Birth</td>
+								<td><a href="#" ng-click="sortType = 'Name'; sortReverse = !sortReverse">Name</td>
+								<td><a href="#" ng-click="sortType = 'Email'; sortReverse = !sortReverse">Email</td>
+								<td><a href="#" ng-click="sortType = 'DOB'; sortReverse = !sortReverse">Date of Birth</td>
 								<!-- <td>Age</td> -->
 								<td>Add_1</td>
 								<td>Add_2</td>
-								<td>Town</td>
-								<td>Postcode</td>
-								<td>Phone Number</td>
+								<td><a href="#" ng-click="sortType = 'Town'; sortReverse = !sortReverse">Town</td>
+								<td><a href="#" ng-click="sortType = 'Postcode'; sortReverse = !sortReverse">Postcode</td>
+								<td><a href="#" ng-click="sortType = 'Phone'; sortReverse = !sortReverse">Phone Number</td>
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="contact in data">
+							<tr ng-repeat="contact in data | orderBy:sortType:sortReverse | filter:searchContacts">
 								<td>{{contact.Name}}</td>
 								<td>{{contact.Email}}</td>
 								<td>{{contact.DOB | date : "dd/MM/yyyy"}}</td>
@@ -100,7 +155,7 @@
 								<td>{{contact.Town}}</td>
 								<td>{{contact.Postcode}}</td>
 								<td>{{contact.Phone}}</td>
-								<td class="btn btn-primary" ng-click="edit(contact)" value="Edit">Edit</td>
+								<td class="btn btn-primary" ng-click="update(contact)" ng-model="showedit" value="Edit">Edit</td>
 								<td class="btn btn-primary" ng-click="delete(contact)" value="Delete">Delete</td>
 							</tr>
 						</tbody>

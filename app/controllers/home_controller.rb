@@ -36,9 +36,16 @@ class HomeController < ApplicationController
 		contact = Contact.find(params['id'])
 		
 		if contact then
-			contact.name = params['name']
-			
+			contact.Name = params['Name']
+			contact.Email = params['Email']
+			contact.Add_1 = params['Add_1']
+			contact.Add_2 = params['Add_2']
+			contact.Town = params['Town']
+			contact.Postcode = params['Postcode']
+			contact.Phone = params['Phone']
+			contact.DOB = params['DOB']
 			contact.save
+			render json: "", layout: false
 		end
 	end
 	
@@ -62,6 +69,14 @@ class HomeController < ApplicationController
 	
 	def get_contacts
 		render json: Contact.all, layout: false
+	end
+	
+	def delete_contact
+		contact = Contact.find(params['id'])
+		if contact then
+			contact.delete 
+		end
+		render json: "", layout: false
 	end
 	
 end
